@@ -13,7 +13,12 @@ public class Test {
     public static void main(String[] args) {
         Group codersi = new Group("codersi");
         GroupDao groupDao = new GroupDao();
-        groupDao.addGroup(codersi);
+        //groupDao.addGroup(codersi);
+        //groupDao.deleteGroup(8);
+        System.out.println(groupDao.getById(1));
+        Group g12 = groupDao.getById(5);
+        System.out.println(g12.getName());
+        System.out.println(g12.getId());
 
 
 

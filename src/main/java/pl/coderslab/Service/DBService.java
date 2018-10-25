@@ -101,7 +101,7 @@ public class DBService {
                     // create Map for data in row
                     Map<String, String> rowResult = new HashMap<>();
                     // get column name and value and put into map
-                    for(int i=1; i<+columns; i++){
+                    for(int i=1; i<=columns; i++){
                         rowResult.put(resultSetMetaData.getColumnName(i), resultSet.getString(i));
                     }
                     // add results to global list
