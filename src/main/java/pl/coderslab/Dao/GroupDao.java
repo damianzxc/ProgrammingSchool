@@ -3,6 +3,7 @@ package pl.coderslab.Dao;
 import pl.coderslab.Entity.Group;
 import pl.coderslab.Service.DBService;
 
+import java.awt.print.Book;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class GroupDao {
         List<String> params = new ArrayList<>();
         params.add(id.toString());
         try{
+            // beacuse executeSelect returns a List<Map>
             List<Map<String, String>> result = DBService.executeSelect(dbName, query, params);
             Map<String, String> resultGroup = result.get(0);
             Group group = new Group();
@@ -59,4 +61,27 @@ public class GroupDao {
         }
         return null;
     }
+
+    // show all groups
+    public List<Group> getAllGroups(){
+        String query = "SELECT * FROM `group` ";
+
+        try{
+            List<Map<String, String>> result = DBService.executeSelect(dbName, query, null);
+            List<Group> groups = new ArrayList<>();
+
+            for(Map<String, String> row: result){
+                Group group = new Group();
+                group.setId(Integer.parseInt(row.get("id")));
+                group.setName(row.get("name"));
+                groups.add(group);
+            }
+            return groups;
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+
 }
