@@ -8,23 +8,24 @@ import java.util.Map;
 
 public class DBService {
 
-    public static Connection getConnection(String database) throws SQLException {
+    public static Connection getSqlConnection(String database) throws SQLException {
         try{
             Class.forName("com.mysql.jdbc.Driver");
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return DriverManager.getConnection(
+        Connection connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/" + database +"?useUnicode=yes&characterEncoding=UTF-8" +
                         "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                 "root",
                 "coderslab");
+        return connection;
     }
 
 
     // for update and delete
     public static void executeUpdate(String database, String query, List<String> parameters) throws SQLException{
-        try(Connection connection = getConnection(database)){
+        try(Connection connection = getSqlConnection(database)){
             // prepare a query
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             // set parameters for query
@@ -46,7 +47,7 @@ public class DBService {
     // adding to the db (this method returns the primary key of the added object)
     public static Integer executeInsert(String database, String query, List<String> parameters) throws SQLException{
         Integer generatedId = null;
-        try(Connection connection = getConnection(database)){
+        try(Connection connection = getSqlConnection(database)){
             // prepare a query and get generated key
             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             // set parameters for the query
@@ -75,7 +76,7 @@ public class DBService {
     // get by id or find all and return as a List of Maps
     public static List<Map<String, String>> executeSelect(String database, String query, List<String> parameters) throws  SQLException {
         List<Map<String, String>> dbSelect = new ArrayList<>();
-        try(Connection connection = getConnection(database)) {
+        try(Connection connection = getSqlConnection(database)) {
             // prepare query
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             // set parameters for query
