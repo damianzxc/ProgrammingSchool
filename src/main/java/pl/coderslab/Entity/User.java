@@ -3,7 +3,7 @@ package pl.coderslab.Entity;
 public class User {
 
     private Integer id;
-    private String name;
+    private String username;
     private String email;
     private String password;
     private Group group;
@@ -12,7 +12,7 @@ public class User {
     }
 
     public User(String name, String email, String password, Group group){
-        setName(name);
+        setUsername(name);
         setEmail(email);
         setPassword(password);
         setGroup(group);
@@ -26,12 +26,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getEmail() {

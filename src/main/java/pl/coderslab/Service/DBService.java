@@ -1,5 +1,7 @@
 package pl.coderslab.Service;
 
+import pl.coderslab.Entity.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,6 +115,7 @@ public class DBService {
         }
         return dbSelect;
     }
+
 
 
 }

@@ -12,7 +12,6 @@ import java.util.Map;
 public class GroupDao {
 
     private String dbName = "school";
-    private String tableName = "group";
 
     // add a new group
     public void addGroup(Group group){
