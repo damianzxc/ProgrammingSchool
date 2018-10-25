@@ -61,11 +61,13 @@ public class DBService {
             System.out.println("Insert completed");
             // get new id
             try(ResultSet generatedKey = preparedStatement.getGeneratedKeys()){
-                generatedId = generatedKey.getInt(1);
-            }catch(SQLException e){
-                System.out.println("Creating user failed, no id obtained");
-                System.out.println(e);
+                if(generatedKey.next()){
+                    generatedId = generatedKey.getInt(1);
+                }else {
+                    throw new SQLException("Creating user failed, no id obtained");
+                }
             }
+
         }catch(SQLException e){
             System.out.println(e);
         }
