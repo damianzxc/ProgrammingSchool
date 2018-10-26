@@ -87,4 +87,35 @@ public class UserDao {
         return user;
     }
 
+    public List<User> findAll(){
+        String query = "SELECT * FROM `user` ";
+        return find(query, null);
+    }
+
+    public List<User> findByGroup(Integer groupId){
+        String query = "SELECT * FROM `user` WHERE `user`.`group_id` ="+groupId;
+        return find(query, null);
+    }
+
+    private List<User> find(String query, List<String> params){
+        try{
+            List<Map<String, String>> result = DBService.executeSelect(dbName, query, null);
+            List<User> users = new ArrayList<>();
+
+            if(result.size()>0){
+
+                for(Map<String, String> row: result){
+
+                    User user = createUser(row);
+                    users.add(user);
+                }
+
+                return users;
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
 }

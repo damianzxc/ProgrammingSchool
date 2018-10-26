@@ -13,7 +13,7 @@ import java.util.Map;
 public class SolutionDao {
 
     private String dbName = "school";
-    private String tableName = "solution";
+
 
     /*
     TODO
@@ -45,18 +45,18 @@ public class SolutionDao {
 
     public List<Solution> findAll(){
         String query = "SELECT * FROM `solution` ";
-        return find(query);
+        return find(query, null);
     }
 
     public List<Solution> findAll(Integer limit){
         String query = "SELECT * FROM `solution` ORDER BY `updated` DESC LIMIT "+limit;
-        return find(query);
+        return find(query, null);
     }
 
-    private List<Solution> find(String query){
+    private List<Solution> find(String query, List<String> param){
         try{
             // executeSelect returns a List<Map>
-            List<Map<String, String>> result = DBService.executeSelect(dbName, query, null);
+            List<Map<String, String>> result = DBService.executeSelect(dbName, query, param);
             // I need a list of all solutions
             List<Solution> solutionList= new ArrayList<>();
 
