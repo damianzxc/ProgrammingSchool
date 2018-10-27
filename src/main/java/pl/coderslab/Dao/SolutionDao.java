@@ -24,9 +24,9 @@ public class SolutionDao {
 
     public Solution createSolution(Map<String, String> data){
         UserDao userDao = new UserDao();
-        User user = userDao.getById(Integer.parseInt(data.get("user_id")));
+        User user = userDao.findById(Integer.parseInt(data.get("user_id")));
 
-        ExerciseDo exerciseDo = new ExerciseDo();
+        ExerciseDao exerciseDao = new ExerciseDao();
         /*
         nie mam jeszcze metod w klasie exerciseDao
          */

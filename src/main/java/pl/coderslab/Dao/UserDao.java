@@ -48,31 +48,6 @@ public class UserDao {
 
     }
 
-
-    public User getById(Integer id){
-        String query = "SELECT * FROM `user` WHERE `user`.`id` = ? ";
-        List<String> params = new ArrayList<>();
-        params.add(id.toString());
-
-        try{
-            // get result from executed select query
-            List<Map<String, String>> result = DBService.executeSelect(dbName, query, params);
-            if(result.size()>0){
-                Map<String, String> select = result.get(0);
-
-                User user = createUser(select);
-
-                return user;
-            }
-
-
-        }catch (SQLException e){
-            System.out.println(e);
-        }
-
-        return null;
-    }
-
     public User createUser(Map<String, String> data){
         GroupDao groupDao = new GroupDao();
         Group group = groupDao.getById(Integer.parseInt(data.get("group_id")));
@@ -89,15 +64,26 @@ public class UserDao {
 
     public List<User> findAll(){
         String query = "SELECT * FROM `user` ";
-        return find(query, null);
+        return find(query);
     }
 
     public List<User> findByGroup(Integer groupId){
         String query = "SELECT * FROM `user` WHERE `user`.`group_id` ="+groupId;
-        return find(query, null);
+        return find(query);
     }
 
-    private List<User> find(String query, List<String> params){
+    public User findById(Integer id){
+        String query = "SELECT * FROM `user` WHERE `user`.`id` ="+id;
+        List<User> result = find(query);
+
+        if(result.size()>0){
+            User user = result.get(0);
+            return user;
+        }
+        return null;
+    }
+
+    private List<User> find(String query){
         try{
             List<Map<String, String>> result = DBService.executeSelect(dbName, query, null);
             List<User> users = new ArrayList<>();
@@ -109,7 +95,6 @@ public class UserDao {
                     User user = createUser(row);
                     users.add(user);
                 }
-
                 return users;
             }
         }catch (SQLException e){
@@ -117,5 +102,4 @@ public class UserDao {
         }
         return null;
     }
-
 }

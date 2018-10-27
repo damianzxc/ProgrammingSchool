@@ -1,9 +1,6 @@
 package pl.coderslab.Dao;
-
 import pl.coderslab.Entity.Group;
 import pl.coderslab.Service.DBService;
-
-import java.awt.print.Book;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,27 +10,11 @@ public class GroupDao {
 
     private String dbName = "school";
 
-    // add a new group
-    public void addGroup(Group group){
-        String query = "INSERT INTO `group` (`id`, `name`) VALUES (NULL, ?)";
-        List<String> params = new ArrayList<>();
-        params.add(group.getName());
-
-        try{
-            Integer newGroupId = DBService.executeInsert(dbName, query, params);
-            if(newGroupId != null){
-                group.setId(newGroupId);
-            }
-        }catch (SQLException e){
-            System.out.println(e);
-        }
-    }
-
-    // delete a group
     public void deleteGroup(Integer id){
         String query = "DELETE FROM `group` WHERE `group`.`id` = ?;";
         List<String> params = new ArrayList<>();
         params.add(id.toString());
+
         try{
             DBService.executeUpdate(dbName, query, params);
         }catch (SQLException e){
@@ -41,7 +22,6 @@ public class GroupDao {
         }
     }
 
-    // get by id
     public Group getById(Integer id){
         String query = "SELECT * FROM `group` WHERE `group`.`id` = ?";
         List<String> params = new ArrayList<>();
@@ -61,7 +41,6 @@ public class GroupDao {
         return null;
     }
 
-    // show all groups
     public List<Group> getAllGroups(){
         String query = "SELECT * FROM `group` ";
 
@@ -82,10 +61,18 @@ public class GroupDao {
         return null;
     }
 
-    /*
-    TODO
-    Update
+    public void addGroup(Group group){
+        String query = "INSERT INTO `group` (`id`, `name`) VALUES (NULL, ?)";
+        List<String> params = new ArrayList<>();
+        params.add(group.getName());
 
-     */
-
+        try{
+            Integer newGroupId = DBService.executeInsert(dbName, query, params);
+            if(newGroupId != null){
+                group.setId(newGroupId);
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+    }
 }
