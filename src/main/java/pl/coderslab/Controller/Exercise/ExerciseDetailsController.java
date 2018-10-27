@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "ExerciseDetailsController")
+@WebServlet(name = "ExerciseDetailsController", urlPatterns = {"/exercise"})
 public class ExerciseDetailsController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
