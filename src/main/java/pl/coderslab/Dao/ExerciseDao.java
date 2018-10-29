@@ -43,7 +43,7 @@ public class ExerciseDao {
         return null;
     }
 
-    public Exercise createExercise(Map<String, String> data){
+    private Exercise createExercise(Map<String, String> data){
 
         Exercise exercise = new Exercise();
         exercise.setId(Integer.parseInt(data.get("id")));
@@ -51,5 +51,21 @@ public class ExerciseDao {
         exercise.setDescription(data.get("description"));
 
         return exercise;
+    }
+
+    public void addExercise(Exercise exercise){
+        String query = "INSERT INTO `exercise` (`id`, `title`, `description`) VALUES (NULL, ?, ?)";
+        List<String> params = new ArrayList<>();
+        params.add(exercise.getTitle());
+        params.add(exercise.getDescription());
+
+        try{
+            Integer newExerciseId = DBService.executeInsert(dbName, query, params);
+            if(newExerciseId != null){
+                exercise.setId(newExerciseId);
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
     }
 }
